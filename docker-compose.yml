@@ -34,6 +34,10 @@ services:
       JWT_SECRET: ${JWT_SECRET:-assay-rules-development-only}
       SEED_DEMO: ${SEED_DEMO:-true}
       ARTIFACT_DIR: /artifacts
+      RECHECK_TZ_OFFSET_MINUTES: ${RECHECK_TZ_OFFSET_MINUTES:-480}
+      RECHECK_PREVIEW_TTL_SECONDS: ${RECHECK_PREVIEW_TTL_SECONDS:-300}
+      RECHECK_HORIZON_DAYS: ${RECHECK_HORIZON_DAYS:-21}
+      RECHECK_DEFAULT_ITEM_MINUTES: ${RECHECK_DEFAULT_ITEM_MINUTES:-10}
     ports: ["${BACKEND_PORT:-19211}:8000"]
     volumes: ["analysis-artifacts:/artifacts"]
     depends_on:

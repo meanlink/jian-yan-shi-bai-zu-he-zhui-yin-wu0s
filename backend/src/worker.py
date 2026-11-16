@@ -8,6 +8,7 @@ from src.models import Job, Dataset, Report
 from src.services.business import analyze
 from src.services.reports import deliver
 from src.services.audit import record
+from src.services import scheduling
 logging.basicConfig(level=logging.INFO)
 def execute(job_id):
     with Session() as db:
@@ -40,6 +41,7 @@ def main():
     with Session() as db:
         for j in db.scalars(select(Job).where(Job.status=='running')):
             j.status='queued';record(db,'worker','job.recovered',{'id':j.id})
+        scheduling.recover(db)
         db.commit()
     while True:
         Path('/tmp/heartbeat').touch()
